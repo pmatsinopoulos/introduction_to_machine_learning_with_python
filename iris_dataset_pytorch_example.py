@@ -78,10 +78,5 @@ with open("calibration_data.json", "w") as json_file:
     json.dump(ezkl_data, json_file, indent=4)
 
 
-# Make a prediction for new data
-X_new = torch.tensor([[5, 2.9, 1, 0.2]], dtype=torch.float32)
-with torch.no_grad():
-    prediction = model(X_new)
-    predicted_class = torch.argmax(prediction, axis=1)
-    print(f'Prediction: {predicted_class.item()}')
-    print(f'Predicted target name: {iris_dataset["target_names"][predicted_class.item()]}')
+# call the file iris_dataset_pytorch_make_prediction.py
+# to make a prediction using this trained data model.
