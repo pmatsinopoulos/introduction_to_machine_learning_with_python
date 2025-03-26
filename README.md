@@ -22,3 +22,11 @@ ezkl/setup $ ezkl compile-circuit --model ../../iris_model.onnx --compiled-circu
 ```
 
 This will generate the file `iris_model.compiled` in the root folder of the project.
+
+Next we download the SRS file:
+
+```bash
+ezkl/setup $ ezkl get-srs --srs-path ../../kzg15.srs
+```
+
+This uses the file `settings.json` and generates the file `../../kzg15.srs`.
