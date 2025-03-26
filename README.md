@@ -1,3 +1,5 @@
+# Setup Phase - Performed by Developers
+
 ```bash
 $ cd ezkl/setup
 
