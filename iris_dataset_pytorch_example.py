@@ -4,6 +4,7 @@ import torch.optim as optim
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 import numpy as np
+import json
 
 # Load the iris dataset
 iris_dataset = load_iris()
@@ -50,12 +51,32 @@ for epoch in range(num_epochs):
     if (epoch + 1) % 10 == 0:
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
 
+# Export the model in ONNX format
+dummy_input = torch.randn(1, 4)
+torch.onnx.export(model, dummy_input, 'iris_model.onnx')
+
+# Save the training data
+np.savez('iris_data.npz', X_train=X_train.numpy(), y_train=y_train.numpy())
+
 # Evaluate the model on the test set
 with torch.no_grad():
     y_pred = model(X_test)
     y_pred_classes = torch.argmax(y_pred, axis=1)
     accuracy = (y_pred_classes == y_test).float().mean()
     print(f'Test set accuracy: {accuracy:.2f}')
+
+# Use the test dataset as a set to calibrate the ezkl settings
+ezkl_data = {
+    "input_shapes": [[len(X_test[0])]],  # Shape of each input sample
+    "input_data": X_test.tolist(),  # Convert X_test tensor to list
+    "output_data": [[y] for y in y_test.tolist()],  # Convert y_test tensor to list and wrap each value in a list
+    "public_output_idxs": [[i, i] for i in range(len(X_test))]  # Map each input index to its corresponding output index
+}
+
+# Save the ezkl-compatible data to a JSON file
+with open("calibration_data.json", "w") as json_file:
+    json.dump(ezkl_data, json_file, indent=4)
+
 
 # Make a prediction for new data
 X_new = torch.tensor([[5, 2.9, 1, 0.2]], dtype=torch.float32)
