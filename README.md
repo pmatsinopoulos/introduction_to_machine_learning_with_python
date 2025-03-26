@@ -30,3 +30,12 @@ ezkl/setup $ ezkl get-srs --srs-path ../../kzg15.srs
 ```
 
 This uses the file `settings.json` and generates the file `../../kzg15.srs`.
+
+Final step in the **setup** phase is to run the `ezkl setup`.
+
+```bash
+ezkl/setup $ ezkl setup --compiled-circuit ../../iris_model.compiled --srs-path ../../kzg15.srs --vk-path ../../vk.key --pk-path ../../pk.key
+```
+
+The `pk.key` is used for proving and the the `vk.key` is used for
+verifying.
