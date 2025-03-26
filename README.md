@@ -15,6 +15,7 @@ Then we have to calibrate the settings. This process takes as input the
 
 ezkl/setup $ ezkl calibrate-settings --data ../../calibration_data.json --model ../../iris_model.onnx  -O settings.json
 ```
+
 This updates the file `settings.json`.
 
 Then we compile the model:
@@ -41,3 +42,25 @@ ezkl/setup $ ezkl setup --compiled-circuit ../../iris_model.compiled --srs-path 
 
 The `pk.key` is used for proving and the the `vk.key` is used for
 verifying.
+
+# Prove Phase - Performed by Users
+
+```bash
+cd ezkl/prove
+```
+
+Generate witness:
+
+```bash
+ezkl/prove $ ezkl gen-witness --data ../../new_data.json --compiled-circuit ../../iris_model.compiled  --output ../../witness.json --vk-path ../../vk.key --srs-path ../../kzg15.srs
+```
+
+This generates the file `witness.json` in the root folder of the project. The witness serves as a _trace_ of the computation, allowing the prover to demonstrate knowledge of all the steps involved in running the input through the model without revealing the specific values.
+
+Then we generate the proof:
+
+```bash
+ezkl/prove $ ezkl prove --witness ../../witness.json --compiled-circuit ../../iris_model.compiled --pk-path ../../pk.key --proof-path ../../proof.json --srs-path ../../kzg15.srs
+```
+
+This will generate the file `proof.json` in the root folder of the project.
