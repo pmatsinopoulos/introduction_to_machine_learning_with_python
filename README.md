@@ -64,3 +64,18 @@ ezkl/prove $ ezkl prove --witness ../../witness.json --compiled-circuit ../../ir
 ```
 
 This will generate the file `proof.json` in the root folder of the project.
+
+# Verify Phase - Performed by Verifier
+
+```bash
+ezkl/verify $ ezkl verify --settings-path ../setup/settings.json --proof-path ../../proof.json --vk-path ../../vk.key --srs-path ../../kzg15.srs
+```
+
+which prints something like this:
+
+```bash
+[*] [2025-03-27 08:36:10:965, ezkl::pfsys] - loaded verification key ✅
+[*] [2025-03-27 08:36:10:972, ezkl::execute] - verify took 0.7
+[*] [2025-03-27 08:36:10:972, ezkl::execute] - verified: true
+[*] [2025-03-27 08:36:10:972, ezkl] - succeeded
+```
