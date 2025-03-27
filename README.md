@@ -9,7 +9,7 @@ ezkl/setup $ ezkl gen-settings --model ../../iris_model.onnx
 This process generates the file [./ezkl/setup/settings.json](./ezkl/setup/settings.json)
 
 Then we have to calibrate the settings. This process takes as input the
-`settings.json` file and writes to `calibrated_settings.json`.
+`settings.json` file and writes back to it.
 
 ```bash
 
