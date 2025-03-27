@@ -37,6 +37,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.01)
 
 # Train the model
+model.train()
 num_epochs = 100
 for epoch in range(num_epochs):
     # Forward pass
@@ -59,6 +60,7 @@ torch.onnx.export(model, dummy_input, 'iris_model.onnx')
 np.savez('iris_data.npz', X_train=X_train.numpy(), y_train=y_train.numpy())
 
 # Evaluate the model on the test set
+model.eval()
 with torch.no_grad():
     y_pred = model(X_test)
     y_pred_classes = torch.argmax(y_pred, axis=1)
