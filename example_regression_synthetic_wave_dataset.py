@@ -9,3 +9,5 @@ plt.ylabel("Target")
 plt.savefig("wave_dataset.png")
 print("X.shape: {}".format(X.shape)) # 40 samples, 1 feature each
 print("y.shape: {}".format(y.shape))
+print("X: \n{}".format(X))
+print("y: \n{}".format(y))
