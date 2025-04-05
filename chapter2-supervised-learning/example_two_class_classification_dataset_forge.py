@@ -12,3 +12,6 @@ plt.ylabel("Second feature")
 plt.savefig("forge_dataset.png")
 print("X.shape: {}".format(X.shape)) # (26, 2), i.e. 26 samples and 2 features
 print("y.shape: {}".format(y.shape)) # (26,), i.e. 26 samples
+
+mglearn.plots.plot_knn_classification(n_neighbors=1)
+plt.savefig("knn_classification.png")
